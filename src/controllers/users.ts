@@ -1,26 +1,29 @@
 import { Request, Response } from 'express'
 import { IUser } from '../interfaces'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '../app'
 
-const prisma = new PrismaClient()
+
 
 const getUsers = async (req: Request, res: Response) => {
-
-  const users = await prisma.user.findMany()
+  const users = await prisma.user.findMany({
+    include: {
+      spents: true,
+    },
+  })
 
   prisma.$disconnect()
 
   res.status(200).json({
     message: 'Get users',
-    data : users
+    data: users,
   })
 }
 
 const createUser = async (req: Request, res: Response) => {
   const user: IUser = req.body
 
-  console.log(req.body);
-  
+  console.log(req.body)
+
   const { age, mail, name } = user
 
   const userInDB = await prisma.user.findUnique({
@@ -42,6 +45,8 @@ const createUser = async (req: Request, res: Response) => {
       mail,
     },
   })
+
+  console.log(newUser)
 
   prisma.$disconnect()
 

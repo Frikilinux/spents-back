@@ -1,9 +1,10 @@
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
-    "nombre" TEXT NOT NULL,
     "mail" TEXT NOT NULL,
     "age" INTEGER NOT NULL,
+    "name" TEXT NOT NULL,
+    "status" BOOLEAN NOT NULL DEFAULT true,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -14,7 +15,7 @@ CREATE TABLE "Spent" (
     "name" TEXT NOT NULL,
     "description" TEXT,
     "amount" INTEGER NOT NULL,
-    "status" BOOLEAN NOT NULL,
+    "status" BOOLEAN NOT NULL DEFAULT true,
     "user" TEXT NOT NULL,
 
     CONSTRAINT "Spent_pkey" PRIMARY KEY ("id")

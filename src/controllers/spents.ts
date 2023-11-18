@@ -1,12 +1,8 @@
 import { Request, Response } from 'express'
-import { PrismaClient } from '@prisma/client'
 import { ISpent } from '../interfaces'
-
-const prisma = new PrismaClient()
+import { prisma } from '../app'
 
 const getSpents = async (req: Request, res: Response) => {
-
-
   res.status(200).json({
     ok: true,
     message: 'Get spents',
@@ -38,7 +34,6 @@ const createSpent = async (req: Request, res: Response) => {
       amount,
       description,
       user,
-      status: true,
     },
   })
 
@@ -49,7 +44,5 @@ const createSpent = async (req: Request, res: Response) => {
     data: newSpent,
   })
 }
-
-
 
 export { getSpents, createSpent }
